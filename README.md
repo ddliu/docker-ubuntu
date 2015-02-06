@@ -1,11 +1,11 @@
 # docker-ubuntu
 
-Scripts to help build a Ubuntu based image.
+Snippets and scripts to help building a Ubuntu based image.
 
 ## Script File Naming
 
 - 01 ~ 09 startup
-- 10 ~ 80 
+- program/install.sh
 - 90 ~ 99 cleanup
 
 ## Usage

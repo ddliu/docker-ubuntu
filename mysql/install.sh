@@ -13,3 +13,4 @@ rm -rf /var/lib/mysql
 mkdir -p /var/lib/mysql
 
 sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf
+cp /build/mysql/docker-entrypoint.sh /entrypoint.sh
