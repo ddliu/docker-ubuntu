@@ -2,6 +2,7 @@
 FROM docker.cn/docker/ubuntu
 MAINTAINER Liu Dong <ddliuhb@gmail.com>
 
+RUN groupadd -r mysql && useradd -r -g mysql mysql
 RUN sed -i "s/archive\.ubuntu\.com/mirrors.aliyun.com/g" /etc/apt/sources.list
 RUN apt-get update
 RUN { \
@@ -11,7 +12,7 @@ RUN { \
     echo mysql-community-server mysql-community-server/remove-test-db select false; \
 } | debconf-set-selections
 
-RUN apt-get install -y mysql-server
+RUN apt-get install -y mysql-server-5.6
 RUN rm -rf /var/lib/mysql
 RUN mkdir -p /var/lib/mysql
 
