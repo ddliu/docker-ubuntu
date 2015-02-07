@@ -1,28 +1,42 @@
-# see: https://github.com/docker-library/mysql
+# see: https://github.com/tutumcloud/tutum-docker-mysql
 FROM docker.cn/docker/ubuntu
 MAINTAINER Liu Dong <ddliuhb@gmail.com>
 
-RUN groupadd -r mysql && useradd -r -g mysql mysql
 RUN sed -i "s/archive\.ubuntu\.com/mirrors.aliyun.com/g" /etc/apt/sources.list
-RUN apt-get update
-RUN { \
-    echo mysql-community-server mysql-community-server/data-dir select ''; \
-    echo mysql-community-server mysql-community-server/root-pass password ''; \
-    echo mysql-community-server mysql-community-server/re-root-pass password ''; \
-    echo mysql-community-server mysql-community-server/remove-test-db select false; \
-} | debconf-set-selections
 
-RUN apt-get install -y mysql-server-5.6
-RUN rm -rf /var/lib/mysql
-RUN mkdir -p /var/lib/mysql
+# Install packages
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && \
+  apt-get -yq install mysql-server-5.6 pwgen && \
+  rm -rf /var/lib/apt/lists/*
 
-RUN sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf
-COPY docker-entrypoint.sh /entrypoint.sh
+# Remove pre-installed database
+RUN rm -rf /var/lib/mysql/*
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Remove syslog configuration
+RUN rm /etc/mysql/conf.d/mysqld_safe_syslog.cnf
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Add MySQL configuration
+ADD my.cnf /etc/mysql/conf.d/my.cnf
+ADD mysqld_charset.cnf /etc/mysql/conf.d/mysqld_charset.cnf
 
-VOLUME /var/lib/mysql
+# Add MySQL scripts
+ADD import_sql.sh /import_sql.sh
+ADD run.sh /run.sh
+RUN chmod 755 /*.sh
+
+# Exposed ENV
+ENV MYSQL_USER admin
+ENV MYSQL_PASS **Random**
+
+# Replication ENV
+ENV REPLICATION_MASTER **False**
+ENV REPLICATION_SLAVE **False**
+ENV REPLICATION_USER replica
+ENV REPLICATION_PASS replica
+
+# Add VOLUMEs to allow backup of config and databases
+VOLUME  ["/etc/mysql", "/var/lib/mysql"]
+
 EXPOSE 3306
-CMD ["mysqld"]
+CMD ["/run.sh"]
