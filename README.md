@@ -35,3 +35,17 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 - nginx
 - php
 - nginx-php
+
+## Get
+
+### GIT
+
+```
+git clone https://github.com/ddliu/docker-ubuntu
+```
+
+### Download
+
+```
+wget -qO- https://github.com/ddliu/docker-ubuntu/archive/master.tar.gz | tar xvz --strip-components 1 -C ./docker-ubuntu
+```
