@@ -1,13 +1,37 @@
 # docker-ubuntu
 
-Snippets and scripts to help building a Ubuntu based image.
+Snippets and sample Dockerfiles to help build Ubuntu based images *faster*.
 
-## Script File Naming
+## Snippets
 
-- 01 ~ 09 startup
-- program/install.sh
-- 90 ~ 99 cleanup
+### Use a faster Docker registry
 
-## Usage
+```
+FROM docker.cn/docker/ubuntu
+```
 
-See `Dockerfile`.
+### Use a faster Ubuntu mirror
+
+```
+RUN sed -i "s/archive\.ubuntu\.com/mirrors.aliyun.com/g" /etc/apt/sources.list
+```
+
+### Update Ubuntu packages
+
+```
+RUN apt-get update
+```
+
+### Cleanup
+
+```
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+```
+
+## Sample Images
+
+- golang
+- mysql
+- nginx
+- php
+- nginx-php

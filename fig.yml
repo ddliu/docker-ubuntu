@@ -1,2 +1,10 @@
-baseimage:
-  build: .
+golang:
+  build: golang
+mysql:
+  build: mysql
+nginxphp:
+  build: nginx-php
+nginx:
+  build: nginx
+php:
+  build: php
