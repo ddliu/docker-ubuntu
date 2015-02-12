@@ -28,6 +28,12 @@ RUN apt-get update
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ```
 
+### Keep container running
+
+```
+COMMAND tail -f /dev/null
+```
+
 ## Sample Images
 
 - golang
