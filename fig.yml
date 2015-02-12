@@ -2,6 +2,9 @@ golang:
   build: golang
 mysql:
   build: mysql
+  environment:
+    MYSQL_USER: test
+    MYSQL_PASS: test
 nginxphp:
   build: nginx-php
 nginx:
