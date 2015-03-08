@@ -1,5 +1,5 @@
 # see: https://github.com/docker-library/golang
-FROM docker.cn/docker/ubuntu
+FROM ubuntu:14.04
 MAINTAINER Liu Dong <ddliuhb@gmail.com>
 
 RUN sed -i "s/archive\.ubuntu\.com/mirrors.aliyun.com/g" /etc/apt/sources.list

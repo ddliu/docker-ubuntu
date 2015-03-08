@@ -34,6 +34,20 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 COMMAND tail -f /dev/null
 ```
 
+## Tips
+
+### Tag an image from non-official registry
+
+```
+docker pull dl.dockerpool.com:5000/ubuntu:14.04
+docker tag dl.dockerpool.com:5000/ubuntu:14.04 ubuntu:14.04
+```
+
+```
+docker pull docker.cn/docker/ubuntu:14.04
+docker tag docker.cn/docker/ubuntu:14.04 ubuntu:14.04
+```
+
 ## Sample Images
 
 - golang
