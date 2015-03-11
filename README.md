@@ -55,6 +55,8 @@ docker tag docker.cn/docker/ubuntu:14.04 ubuntu:14.04
 - nginx
 - php
 - nginx-php
+- data
+- redis
 
 ## Get
 
