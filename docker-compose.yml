@@ -11,3 +11,5 @@ nginx:
   build: nginx
 php:
   build: php
+data:
+  build: data

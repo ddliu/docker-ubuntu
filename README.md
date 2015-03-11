@@ -7,7 +7,7 @@ Snippets and sample Dockerfiles to help build Ubuntu based images *faster*.
 ### Use a faster Docker registry
 
 ```
-FROM docker.cn/docker/ubuntu
+FROM docker.cn/docker/ubuntu:14.04
 ```
 
 ### Use a faster Ubuntu mirror
@@ -31,7 +31,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ### Keep container running
 
 ```
-COMMAND tail -f /dev/null
+CMD tail -f /dev/null
 ```
 
 ## Tips
