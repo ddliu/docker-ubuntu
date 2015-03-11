@@ -1,37 +1,23 @@
-#
-# Redis Dockerfile
-#
-# https://github.com/dockerfile/redis
-#
-
-# Pull base image.
+# see https://github.com/sameersbn/docker-redis
 FROM ubuntu:14.04
+MAINTAINER Liu Dong <ddliuhb@gmail.com>
 
-# Install Redis.
-RUN \
-  cd /tmp && \
-  wget http://download.redis.io/redis-stable.tar.gz && \
-  tar xvzf redis-stable.tar.gz && \
-  cd redis-stable && \
-  make && \
-  make install && \
-  cp -f src/redis-sentinel /usr/local/bin && \
-  mkdir -p /etc/redis && \
-  cp -f *.conf /etc/redis && \
-  rm -rf /tmp/redis-stable* && \
-  sed -i 's/^\(bind .*\)$/# \1/' /etc/redis/redis.conf && \
-  sed -i 's/^\(daemonize .*\)$/# \1/' /etc/redis/redis.conf && \
-  sed -i 's/^\(dir .*\)$/# \1\ndir \/data/' /etc/redis/redis.conf && \
-  sed -i 's/^\(logfile .*\)$/# \1/' /etc/redis/redis.conf
+RUN sed -i "s/archive\.ubuntu\.com/mirrors.aliyun.com/g" /etc/apt/sources.list
+RUN apt-get update && \
+  apt-get -yq install redis-server && \
+  rm -rf /var/lib/apt/lists/*
 
-# Define mountable directories.
-VOLUME ["/data"]
+RUN sed 's/^daemonize yes/daemonize no/' -i /etc/redis/redis.conf \
+ && sed 's/^bind 127.0.0.1/bind 0.0.0.0/' -i /etc/redis/redis.conf \
+ && sed 's/^# unixsocket /unixsocket /' -i /etc/redis/redis.conf \
+ && sed 's/^# unixsocketperm 755/unixsocketperm 777/' -i /etc/redis/redis.conf \
+ && sed '/^logfile/d' -i /etc/redis/redis.conf
 
-# Define working directory.
-WORKDIR /data
+ADD start /start
+RUN chmod 755 /start
 
-# Define default command.
-CMD ["redis-server", "/etc/redis/redis.conf"]
-
-# Expose ports.
 EXPOSE 6379
+
+VOLUME ["/var/lib/redis"]
+VOLUME ["/run/redis"]
+CMD ["/start"]

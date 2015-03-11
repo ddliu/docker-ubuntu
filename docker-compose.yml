@@ -13,3 +13,5 @@ php:
   build: php
 data:
   build: data
+redis:
+  build: redis
