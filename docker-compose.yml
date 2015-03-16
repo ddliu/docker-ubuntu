@@ -9,8 +9,8 @@ nginxphp:
   build: nginx-php
 nginx:
   build: nginx
-php:
-  build: php
+phpfpm:
+  build: php-fpm
 data:
   build: data
 redis:

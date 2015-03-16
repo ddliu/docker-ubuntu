@@ -53,7 +53,7 @@ docker tag docker.cn/docker/ubuntu:14.04 ubuntu:14.04
 - golang
 - mysql
 - nginx
-- php
+- php-fpm
 - nginx-php
 - data
 - redis
