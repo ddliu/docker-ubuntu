@@ -19,3 +19,5 @@ sphinxsearch:
   build: sphinxsearch
   volumes: 
     - sphinxsearch/sphinx.conf:/etc/sphinxsearch/sphinx.conf:ro
+rabbitmq:
+  build: rabbitmq
