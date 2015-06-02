@@ -21,3 +21,5 @@ sphinxsearch:
     - sphinxsearch/sphinx.conf:/etc/sphinxsearch/sphinx.conf:ro
 rabbitmq:
   build: rabbitmq
+elasticsearch:
+  build: elasticsearch
