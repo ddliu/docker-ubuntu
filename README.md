@@ -50,6 +50,7 @@ docker tag docker.cn/docker/ubuntu:14.04 ubuntu:14.04
 
 ## Sample Images
 
+- cron
 - golang
 - mysql
 - nginx
