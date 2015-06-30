@@ -34,6 +34,13 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 CMD tail -f /dev/null
 ```
 
+### Change Timezone
+
+```
+RUN echo "Asia/Shanghai" > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
+```
+
 ## Tips
 
 ### Tag an image from non-official registry
