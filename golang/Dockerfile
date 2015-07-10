@@ -3,11 +3,12 @@ FROM ubuntu:14.04
 MAINTAINER Liu Dong <ddliuhb@gmail.com>
 
 RUN sed -i "s/archive\.ubuntu\.com/mirrors.aliyun.com/g" /etc/apt/sources.list
-RUN apt-get update
-RUN apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
         ca-certificates curl gcc libc6-dev make \
         bzr git mercurial \
-        --no-install-recommends
+        --no-install-recommends && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV GOLANG_VERSION 1.4.1
 
@@ -20,8 +21,6 @@ RUN cd /usr/src/go/src && ./make.bash --no-clean 2>&1
 RUN mkdir -p /go/src
 
 COPY go-wrapper /usr/local/bin/
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV PATH /usr/src/go/bin:$PATH
 ENV GOPATH /go
